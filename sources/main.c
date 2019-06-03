@@ -6,7 +6,7 @@
 /*   By: qpupier <qpupier@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/18 12:28:44 by qpupier      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 23:27:40 by qpupier     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/03 10:37:13 by qpupier     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,7 +91,7 @@ int		main(void)
 	mlx_hook(p->mlx->win_ptr, 2, 0, &ft_deal_key, p);
 	mlx_mouse_hook(p->mlx->win_ptr, &ft_mouse_event_scroll, p);
 	mlx_hook(p->mlx->win_ptr, 6, 0, &ft_mouse_move, p);
-	//mlx_hook(p->mlx->win_ptr, 5, 0, ft_deal_key_release, p);
+	mlx_hook(p->mlx->win_ptr, 5, 0, &ft_deal_key_release, p);
 	mlx_hook(p->mlx->win_ptr, 17, 0, &ft_exit, p);
 	mlx_loop(p->mlx->mlx_ptr);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: qpupier <qpupier@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/11 21:28:31 by qpupier      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/31 17:29:29 by qpupier     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/03 11:56:05 by qpupier     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -111,6 +111,9 @@ typedef struct	s_param
 	int			init;
 	int			vignette;
 	int			param;
+	int			mouse_l;
+	int			mouse_r;
+	int			screenshot;
 }				t_param;
 
 typedef struct	s_vignette
@@ -153,6 +156,8 @@ t_real	ft_make_real(int x, int y);
 t_rgb	ft_color_int_to_rgb(int nb);
 t_real	ft_cplx_to_real(t_cplx z);
 t_cplx	ft_real_to_cplx(t_real xy);
+int		ft_pow(double nb, int pow);
+char	*ft_ftoa(double nb, int p);
 
 
 
@@ -166,6 +171,7 @@ void			ft_fern(t_mlx_img img, t_fern fern[2][4], int n, int it);
 int				ft_deal_key(int key, t_param *param);
 int				ft_mouse_move(int x, int y, t_param *p);
 int				ft_mouse_event_scroll(int key, int x, int y, t_param *p);
+int				ft_deal_key_release(t_param *p);
 void			*ft_display(void *t);
 void			ft_multithreading(t_param *p);
 void			ft_pythagore(t_param *p, t_cplx xy, t_pyth deg);

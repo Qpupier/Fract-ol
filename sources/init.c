@@ -6,7 +6,7 @@
 /*   By: qpupier <qpupier@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/07 19:10:55 by qpupier      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/31 17:30:54 by qpupier     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/03 11:56:28 by qpupier     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,6 +63,7 @@ void	ft_init(t_param *p)
 	p->tree_degree[0] = -120;
 	p->tree_degree[1] = 0;
 	p->tree_degree[2] = 120;
+	p->screenshot = 0;
 }
 
 void	ft_init_params(t_param *p)

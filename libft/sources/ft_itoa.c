@@ -6,7 +6,7 @@
 /*   By: qpupier <qpupier@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/29 18:05:31 by qpupier      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 19:32:36 by qpupier     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/31 20:53:51 by qpupier     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@ char	*ft_itoa(long int n)
 		return (ft_strdup("0"));
 	size = ft_intlen(n);
 	if (!(s = ft_strnew(size)))
-		return (NULL);
+		ft_error("Malloc error");
 	while (size--)
 	{
 		s[size] = ft_digit_abs(n % 10) + '0';

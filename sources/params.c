@@ -6,7 +6,7 @@
 /*   By: qpupier <qpupier@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 12:48:14 by qpupier      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/31 17:19:23 by qpupier     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/03 10:27:17 by qpupier     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,6 +22,18 @@ void	ft_param_line(t_mlx *mlx, int *n, char *str, long int param)
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10 + 10 * ft_strlen(str), 	\
 			*n, WHITE_H, degree);
 	free(degree);
+	*n += 30;
+}
+
+void	ft_param_line_float(t_mlx *mlx, int *n, char *str, double param)
+{
+	char	*tmp;
+
+	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, *n, WHITE_H, str);
+	tmp = ft_ftoa(param, 3);
+	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10 + 10 * ft_strlen(str), 	\
+			*n, WHITE_H, ft_strcmp(tmp, "-0.000") ? tmp : "0.000");
+	free(tmp);
 	*n += 30;
 }
 
@@ -50,6 +62,7 @@ void	ft_params(t_param *p)
 {
 	int		i;
 	int		n;
+	char	*tmp;
 
 	p->fractal >= 23 ? ft_param_button(p, 15) : ft_img_dark(&p->mlx->param2);
 	i = -1;
@@ -93,8 +106,14 @@ void	ft_params(t_param *p)
 		ft_param_line(p->mlx, &n, "Right branch degree : ", p->tree_degree[2]);
 	}
 	n = HEIGHT + PARAM - 120;
-	ft_param_line(p->mlx, &n, "X coordonate : ", p->pos_left[p->fractal].rl + 2);
-	ft_param_line(p->mlx, &n, "Y coordonate : ", p->pos_left[p->fractal].im + 2);
+	tmp = ft_ftoa(p->pos_left[p->fractal].rl + p->zoom[p->fractal], 3);
+	mlx_string_put(p->mlx->mlx_ptr, p->mlx->win_ptr, 10 * ft_strlen("X coordonates : -X.XXX  ") + 10, n, 0xFFFFFF, ft_strcmp(tmp, "-0.000") ? tmp : "0.000");
+	free(tmp);
+	ft_param_line_float(p->mlx, &n, "X coordonates : ", p->pos_left[p->fractal].rl);
+	tmp = ft_ftoa(p->pos_left[p->fractal].im + p->zoom[p->fractal], 3);
+	mlx_string_put(p->mlx->mlx_ptr, p->mlx->win_ptr, 10 * ft_strlen("X coordonates : -X.XXX  ") + 10, n, 0xFFFFFF, ft_strcmp(tmp, "-0.000") ? tmp : "0.000");
+	free(tmp);
+	ft_param_line_float(p->mlx, &n, "Y coordonates : ", p->pos_left[p->fractal].im);
 	ft_param_line(p->mlx, &n, "Zoom : ", p->dis_zoom[p->fractal]);
 	ft_param_line(p->mlx, &n, "Number of iterations : ", p->it[p->fractal]);
 }

@@ -6,7 +6,7 @@
 /*   By: qpupier <qpupier@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/15 11:48:49 by qpupier      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/31 17:30:21 by qpupier     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/03 12:01:47 by qpupier     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,11 +56,11 @@ int		ft_deal_key(int key, t_param *p)
 		p->stop = p->stop ? 0 : 1;
 	else if (key == LEFT && p->pos_left[p->fractal].rl > -6)
 		p->pos_left[p->fractal].rl -= 0.05 * p->zoom[p->fractal];
-	else if (key == RIGHT && p->pos_left[p->fractal].rl < 4)
+	else if (key == RIGHT && p->pos_left[p->fractal].rl < 2)
 		p->pos_left[p->fractal].rl += 0.05 * p->zoom[p->fractal];
 	else if (key == UP && p->pos_left[p->fractal].im > -6)
 		p->pos_left[p->fractal].im -= 0.05 * p->zoom[p->fractal];
-	else if (key == DOWN && p->pos_left[p->fractal].im < 4)
+	else if (key == DOWN && p->pos_left[p->fractal].im < 2)
 		p->pos_left[p->fractal].im += 0.05 * p->zoom[p->fractal];
 	else if (key == INF)
 	{
@@ -154,7 +154,11 @@ void	ft_choice_param(t_param *p, int x, int y)
 int		ft_mouse_event_scroll(int key, int x, int y, t_param *p)
 {
 	t_cplx	pos;
+	char	*s;
+	char	*tmp;
 
+	p->mouse_l = 0;
+	p->mouse_r = 0;
 	if (key > 3)
 	{
 		x -= DIS;
@@ -173,6 +177,7 @@ int		ft_mouse_event_scroll(int key, int x, int y, t_param *p)
 	}
 	else if (key == 1)
 	{
+		p->mouse_l = 1;
 		if (x >= 0 && x < DIS && y >= 0 && y < HEIGHT)
 		{
 			if (!p->param)
@@ -266,6 +271,25 @@ int		ft_mouse_event_scroll(int key, int x, int y, t_param *p)
 				ft_fractol(p);
 			}
 	}
+	else if (key == 2)
+		p->mouse_r = 1;
+	else
+	{
+		tmp = ft_itoa(++p->screenshot);
+		s = ft_strnew(ft_strlen("screencapture -i ~/Desktop/Fractal_screenshot_.jpg") + ft_strlen(tmp));
+		ft_strcat(s, "screencapture -i ~/Desktop/Fractal_screenshot_");
+		ft_strcat(s, tmp);
+		ft_strcat(s, ".jpg");
+		system(s);
+		free(s);
+		write(1, "Succesful screenshot !\n", 23);
+	}
 	key > 2 ? ft_fractol(p) : ft_put_image(p);
+	return (0);
+}
+
+int		ft_deal_key_release(t_param *p)
+{
+	(void)p;
 	return (0);
 }
