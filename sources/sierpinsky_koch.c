@@ -6,28 +6,28 @@
 /*   By: qpupier <qpupier@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/11 11:26:47 by qpupier      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/31 17:12:53 by qpupier     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/12 20:31:40 by qpupier     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-void	ft_sierpinski_carpet(t_param *p, t_real o, t_real coord, int nb)
+void	ft_sierpinsky_carpet(t_param *p, t_real o, t_real coord, int nb)
 {
 	int	i;
 	int	j;
+	t_rgb	color;
 
 	if (nb > p->it[21] || nb <= 0)
 		return ;
+	color = nb > 1 ? ft_color_average(p->colors_carpet[0], p->colors_carpet[1], (double)(nb - 1) / (p->it[21] - 1)) : p->colors_carpet[0];
 	j = o.y + coord.y / 3 - 1;
 	while (++j < o.y + 2 * coord.y / 3)
 	{
 		i = o.x + coord.x / 3 - 1;
 		while (++i < o.x + 2 * coord.x / 3)
-			ft_pixel_put(p->mlx->win[p->fractal], i, j, 			\
-					ft_color_average(RED, BLUE, 					\
-					(double)(nb - 1) / (p->it[21] - 1)));
+			ft_pixel_put(p->mlx->win[p->fractal], i, j, color);
 	}
 	i = -1;
 	while (++i < 3)
@@ -35,7 +35,7 @@ void	ft_sierpinski_carpet(t_param *p, t_real o, t_real coord, int nb)
 		j = -1;
 		while (++j < 3)
 			if (i != 1 || j != 1)
-				ft_sierpinski_carpet(p, 							\
+				ft_sierpinsky_carpet(p, 							\
 						ft_make_real(o.x + i * coord.x / 3, 		\
 						o.y + j * coord.y / 3), 					\
 						ft_make_real(coord.x / 3, coord.y / 3), nb + 1);

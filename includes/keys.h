@@ -6,7 +6,7 @@
 /*   By: qpupier <qpupier@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/13 12:10:26 by qpupier      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 00:09:31 by qpupier     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/12 19:47:09 by qpupier     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,6 +43,7 @@
 # define RIGHT 124
 # define DOWN 125
 # define UP 126
+# define SPACE 49
 # define LESS 78
 # define MORE 69
 # define H_LESS 27
@@ -74,4 +75,6 @@
 # define RED (t_rgb){255, 0, 0, 0}
 # define GREEN (t_rgb){0, 255, 0, 0}
 # define BLUE (t_rgb){0, 0, 255, 0}
+# define GREY (t_rgb){150, 150, 150, 0}
+# define BROWN (t_rgb){63, 34, 4, 0}
 #endif

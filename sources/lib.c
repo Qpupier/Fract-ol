@@ -42,17 +42,17 @@ t_rgb	ft_get_pixel(t_mlx_img img, int x, int y)
 	return (rgb);
 }
 
-void	ft_img_dark(t_mlx_img *img)
+void	ft_img_dark(t_mlx_img img)
 {
 	int	i;
 	int	j;
 
 	j = -1;
-	while (++j < img->height)
+	while (++j < img.height)
 	{
 		i = -1;
-		while (++i < img->width)
-			ft_pixel_put(*img, i, j, BLACK);
+		while (++i < img.width)
+			ft_pixel_put(img, i, j, BLACK);
 	}
 }
 
@@ -63,6 +63,7 @@ t_rgb	ft_color_rgb_random(void)
 	color.r = rand() % 255;
 	color.g = rand() % 255;
 	color.b = rand() % 255;
+	color.a = 0;
 	return (color);
 }
 
@@ -184,7 +185,7 @@ t_rgb	ft_color_int_to_rgb(int nb)
 {
 	t_rgb	rgb;
 
-	rgb.r = nb / 65536 % 256;
+	rgb.r = nb / 65536;
 	rgb.g = nb / 256 % 256;
 	rgb.b = nb % 256;
 	rgb.a = 0;
@@ -246,4 +247,16 @@ char	*ft_ftoa(double nb, int p)
 		ft_strdel(&t);
 	}
 	return (s);
+}
+
+int		ft_cplx_equ(t_cplx a, t_cplx b)
+{
+	if (a.rl == b.rl && a.im == b.im)
+		return (1);
+	return (0);
+}
+
+int		ft_color_rgb_to_int(t_rgb rgb)
+{
+	return ((rgb.r << 16) + (rgb.g << 8) + rgb.b);
 }

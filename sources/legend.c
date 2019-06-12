@@ -90,8 +90,8 @@ void	ft_miniatures_hide(t_param *p)
 	i = 100;
 	while (i--)
 	{
-		ft_vignette(p->mlx->param_fern[i], 0, 2, p->mlx->win_fern[0][16]);
-		ft_vignette(p->mlx->param_fern[i], 1, 2, p->mlx->win_fern[1][17]);
+		ft_vignette(p->mlx->param_fern[i], 0, 2, p->mlx->win_fern[0][i]);
+		ft_vignette(p->mlx->param_fern[i], 1, 2, p->mlx->win_fern[1][i]);
 	}
 	ft_vignette(p->mlx->param_newton, 0, 2, p->mlx->win[18]);
 	ft_vignette(p->mlx->param_newton, 1, 2, p->mlx->win[19]);
@@ -101,7 +101,9 @@ void	ft_miniatures_hide(t_param *p)
 
 void	ft_miniatures(t_param *p)
 {
-	ft_img_dark(&p->mlx->param_dark);
+	int	i;
+
+	ft_img_dark(p->mlx->param);
 	p->vignette = 1;
 	ft_vignette(p->mlx->param, 0, NB_FRACTALES, p->mlx->win[0]);
 	ft_button(p->mlx->param, 0, 0);
@@ -118,9 +120,21 @@ void	ft_miniatures(t_param *p)
 	ft_button(p->mlx->param, DIS / 2, 3 * HEIGHT / 5);
 	ft_size_koch(p, ft_make_cplx(0, 4 * HEIGHT / 5), DIS / 2, HEIGHT / 5);
 	ft_tree(p, ft_make_cplx(3 * DIS / 4, HEIGHT - HEIGHT / 50), 0, 	\
-			(t_tree){HEIGHT / 25, 0});
+			(t_tree){p->tree_size / 5, 0});
 	ft_miniatures_hide(p);
-	ft_init_params(p);
+	i = -1;
+	if (!p->param)
+		ft_init_params(p);
+	else if (p->param == 1)
+		ft_choice_julia(p);
+	else if (p->param == 2)
+		ft_choice_mandelbrot(p);
+	else if (p->param == 3)
+		ft_choice_fern(p);
+	else if (p->param == 4)
+		ft_choice_newton(p);
+	else
+		ft_choice_sierpinsky(p);
 	p->vignette = 0;
 }
 
@@ -130,23 +144,23 @@ void	ft_trace_borders(void *mlx_ptr, void *win_ptr, int fractal)
 	int	j;
 
 	mlx_clear_window(mlx_ptr, win_ptr);
-	i = 34;
-	while (++i < 65)
+	i = 49;
+	while (++i <= 80)
 	{
-		mlx_pixel_put(mlx_ptr, win_ptr, 10, i, WHITE_H);
-		mlx_pixel_put(mlx_ptr, win_ptr, 290, i, WHITE_H);
+		mlx_pixel_put(mlx_ptr, win_ptr, 10, i, GREY_H);
+		mlx_pixel_put(mlx_ptr, win_ptr, 420, i, GREY_H);
 	}
 	i = 9;
-	while (++i < 290)
+	while (++i <= 420)
 	{
-		mlx_pixel_put(mlx_ptr, win_ptr, i, 35, WHITE_H);
-		mlx_pixel_put(mlx_ptr, win_ptr, i, 65, WHITE_H);
+		mlx_pixel_put(mlx_ptr, win_ptr, i, 50, GREY_H);
+		mlx_pixel_put(mlx_ptr, win_ptr, i, 80, GREY_H);
 	}
-	j = 35;
-	while (++j < 65)
+	i = 10;
+	while (++i < (fractal + 1) * 410 / (double)NB_FRACTALES + 10)
 	{
-		i = 10;
-		while (++i < (fractal + 1) * 280 / (double)NB_FRACTALES + 10)
-			mlx_pixel_put(mlx_ptr, win_ptr, i, j, GREEN_H);
+		j = 50;
+		while (++j < 80)
+			mlx_pixel_put(mlx_ptr, win_ptr, i, j, ft_color_rgb_to_int(ft_color_average(ft_color_hex_to_rgb("0x096A09"), ft_color_hex_to_rgb("0x34C934"), (i - 10.0) / 410)));
 	}
 }

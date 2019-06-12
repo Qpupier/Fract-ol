@@ -6,7 +6,7 @@
 #    By: qpupier <qpupier@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/13 11:56:39 by qpupier      #+#   ##    ##    #+#        #
-#    Updated: 2019/05/22 23:39:17 by qpupier     ###    #+. /#+    ###.fr      #
+#    Updated: 2019/06/12 14:46:49 by qpupier     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -31,6 +31,7 @@ FILES = $(DIR)/main.o 													\
 		$(DIR)/choice_legend2.o 										\
 		$(DIR)/choice_legend3.o 										\
 		$(DIR)/params.o 												\
+		$(DIR)/colors.o 												\
 		$(DIR)/algo.o
 
 all: $(NAME)

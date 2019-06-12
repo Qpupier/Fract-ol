@@ -75,7 +75,7 @@ void	ft_init_fern_after(t_param *p)
 	ft_init_fern2(p);
 }
 
-void	ft_init_fern(t_param *p)
+void	ft_init_fern_values(t_param *p)
 {
 	p->fern[0][0].mat_2_2[0] = 0;
 	p->fern[0][0].mat_2_2[1] = 0;

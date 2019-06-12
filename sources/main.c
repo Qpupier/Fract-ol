@@ -6,7 +6,7 @@
 /*   By: qpupier <qpupier@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/18 12:28:44 by qpupier      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/03 10:37:13 by qpupier     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/12 11:37:37 by qpupier     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,17 +16,20 @@
 void	ft_create_window(t_param *p)
 {
 	int	i;
+	int	tmp;
 
 	p->mlx->mlx_ptr = mlx_init();
 	p->mlx->mlx_loading_ptr = mlx_init();
 	p->mlx->win_loading_ptr = 	\
-			mlx_new_window(p->mlx->mlx_loading_ptr, 300, 100, "Loading...");
+			mlx_new_window(p->mlx->mlx_loading_ptr, 430, 130, "Fract'ol");
 	i = -1;
 	while (++i < WIDTH * HEIGHT)
 		p->buddhabrot[i] = 0;
+	tmp = p->fractal;
 	p->fractal = -1;
 	while (++p->fractal < NB_FRACTALES)
 		ft_create_img(p->mlx->mlx_ptr, &p->mlx->win[p->fractal], WIDTH, HEIGHT);
+	p->fractal = tmp;
 	i = -1;
 	while (++i < 100)
 	{
@@ -46,14 +49,15 @@ void	ft_create_window(t_param *p)
 void	ft_fractol(t_param *p)
 {
 	if (p->fractal >= 16)
-		ft_img_dark(&p->mlx->win[p->fractal]);
-	if (p->init)
-		ft_init_zoom(p);
+		ft_img_dark(p->mlx->win[p->fractal]);
 	ft_multithreading(p);
 }
 
 void	ft_start(t_param *p)
 {
+	int	tmp;
+
+	tmp = p->fractal;
 	p->fractal = -1;
 	while (++p->fractal < NB_FRACTALES)
 	{
@@ -62,9 +66,8 @@ void	ft_start(t_param *p)
 			ft_display2(p, ft_buddha(p));
 	}
 	p->init = 0;
-	p->fractal = 0;
-	mlx_put_image_to_window(p->mlx, p->mlx->win_ptr, p->mlx->win[0].ptr, 	\
-			DIS, 0);
+	p->fractal = tmp;
+	ft_put_image(p);
 	ft_miniatures(p);
 }
 
@@ -79,14 +82,52 @@ void	ft_malloc(t_param **p)
 		ft_error("Malloc error");
 }
 
-int		main(void)
+void	ft_usage(void)
+{
+	ft_error("usage: ./fractol [\"Julia\",\"Mandelbrot\",\"Buddhabrot\",\"Bubblebrot\",\"Fern\",\"Newton\",\"Pythagore\",\"Sierpinsky\",\"Koch\",\"Tree\"]");
+}
+
+void	ft_init_fractal(t_param *p, char *fractal)
+{
+	if (ft_strequ(fractal, "Julia"))
+		p->fractal = 0;
+	else if (ft_strequ(fractal, "Mandelbrot"))
+		p->fractal = 5;
+	else if (ft_strequ(fractal, "Buddhabrot"))
+		p->fractal = 14;
+	else if (ft_strequ(fractal, "Bubblebrot"))
+		p->fractal = 15;
+	else if (ft_strequ(fractal, "Fern"))
+		p->fractal = 16;
+	else if (ft_strequ(fractal, "Newton"))
+		p->fractal = 18;
+	else if (ft_strequ(fractal, "Pythagore"))
+		p->fractal = 20;
+	else if (ft_strequ(fractal, "Sierpinsky"))
+		p->fractal = 21;
+	else if (ft_strequ(fractal, "Koch"))
+		p->fractal = 23;
+	else if (ft_strequ(fractal, "Tree"))
+		p->fractal = 24;
+	else
+		ft_usage();
+}
+
+int		main(int ac, char **av)
 {
 	t_param *p;
 	time_t	t;
 
+	if (ac > 2)
+		ft_usage();
 	ft_malloc(&p);
+	if (ac == 1)
+		p->fractal = 0;
+	else
+		ft_init_fractal(p, av[1]);
 	srand((unsigned)time(&t));
 	ft_init(p);
+	ft_img_dark(p->mlx->param_dark);
 	ft_start(p);
 	mlx_hook(p->mlx->win_ptr, 2, 0, &ft_deal_key, p);
 	mlx_mouse_hook(p->mlx->win_ptr, &ft_mouse_event_scroll, p);

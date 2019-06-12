@@ -61,8 +61,6 @@ void	ft_legend_mandelbrot(void *mlx_ptr, void *win_ptr)
 			5, 50 + 5 + 2 * (HEIGHT - 50) / 3, WHITE_H, "MIRROR");
 	mlx_string_put(mlx_ptr, win_ptr, 									\
 			5 + DIS / 2, 50 + 5 + 2 * (HEIGHT - 50) / 3, WHITE_H, "STAR");
-	//mlx_string_put(mlx_ptr, win_ptr, 									\
-	//		5 + DIS / 2, 50 + 5 + 3 * (HEIGHT - 50) / 5, WHITE_H, "RETURN");
 	mlx_string_put(mlx_ptr, win_ptr, 									\
 			5, 50 + 5 + 5 * (HEIGHT - 50) / 6, WHITE_H, "CIRCLE");
 	mlx_string_put(mlx_ptr, win_ptr, 									\
@@ -114,7 +112,6 @@ void	ft_choice_mandelbrot(t_param *p)
 		ft_pixel_put(m, i, (HEIGHT - 50) / 2 + 50, WHITE);
 		ft_pixel_put(m, i, 2 * (HEIGHT - 50) / 3 + 50, WHITE);
 		ft_pixel_put(m, i, 5 * (HEIGHT - 50) / 6 + 50, WHITE);
-		//ft_pixel_put(m, i, 5 * (HEIGHT - 50) / 5 + 50, WHITE);
 	}
 	ft_return_button(m);
 	mlx_put_image_to_window(p->mlx, p->mlx->win_ptr, m.ptr, 0, 0);

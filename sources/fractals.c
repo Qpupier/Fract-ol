@@ -6,7 +6,7 @@
 /*   By: qpupier <qpupier@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/12 20:56:29 by qpupier      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/31 17:30:21 by qpupier     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/12 11:00:49 by qpupier     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,7 +56,7 @@ t_cplx	ft_result(t_param *p, t_cplx z, t_cplx c)
 
 void	ft_display_result(t_param *p, double i, double x, double y)
 {
-	int		nb;
+	double	nb;
 	t_cplx	z;
 
 	z = ft_make_cplx(0, 0);
@@ -64,10 +64,9 @@ void	ft_display_result(t_param *p, double i, double x, double y)
 	{
 		if (p->fractal < 14)
 		{
-			nb = i * 3 / p->it[p->fractal];
+			nb = i * NB_COLORS / p->it[p->fractal];
 			ft_pixel_put(p->mlx->win[p->fractal], x, y, 				\
-					ft_color_average(p->colors[nb], p->colors[nb + 1], 	\
-					3 * i / p->it[p->fractal] - nb + 0.02));
+					ft_color_average(p->colors[(int)nb], p->colors[(int)nb + 1], nb - (int)nb));
 		}
 		else if (p->fractal == 14)
 			while (ft_cplx_modul_2(z) < 4)
@@ -88,13 +87,18 @@ t_cplx	ft_scale_coords(t_param *p, double x, double y)
 	return (ft_make_cplx(p->pos_left[p->fractal].rl + p->zoom[p->fractal] * x / WIDTH, p->pos_left[p->fractal].im + p->zoom[p->fractal] * y / HEIGHT));
 }
 
+t_cplx	ft_inverse_coords(t_param *p, double x, double y)
+{
+	return (ft_make_cplx((x - p->pos_left[p->fractal].rl) * WIDTH / p->zoom[p->fractal], (y - p->pos_left[p->fractal].im) * WIDTH / p->zoom[p->fractal]));
+}
+
 void	ft_algo(t_param *p, double x, double y)
 {
 	t_cplx	z;
 	double	i;
 	t_cplx	tmp;
 
-	if (p->fractal == 18 || p->fractal == 19)
+	if (p->fractal >= 18 && p->fractal < 21)
 		return (ft_fractal_newton(p, x, y));
 	tmp = ft_scale_coords(p, x, y);
 	if (p->fractal < 5)
@@ -127,5 +131,5 @@ void	ft_display2(t_param *p, double max)
 					ft_color_average(BLACK, WHITE, p->buddhabrot[i] * 3 / max));
 		else
 			ft_pixel_put(p->mlx->win[p->fractal], i / HEIGHT, i % HEIGHT, 	\
-				ft_color_average(WHITE, RED, p->buddhabrot[i] / max - 1 / 6));
+				ft_color_average(WHITE, p->fractal == 14 ? RED : BLUE, p->buddhabrot[i] / max - 1 / 6));
 }
