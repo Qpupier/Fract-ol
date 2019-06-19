@@ -5,157 +5,120 @@
 #                                                  +:+:+   +:    +:  +:+:+     #
 #    By: qpupier <qpupier@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
-#    Created: 2018/10/03 16:44:21 by qpupier      #+#   ##    ##    #+#        #
-#    Updated: 2019/05/11 15:01:06 by qpupier     ###    #+. /#+    ###.fr      #
+#    Created: 2019/03/13 11:56:39 by qpupier      #+#   ##    ##    #+#        #
+#    Updated: 2019/06/19 22:14:11 by qpupier     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
+SRC_PATH = sources
+SRC_NAME = 	colors/ft_color_average.c 		ft_occur.c 						\
+			colors/ft_color_hex_to_rgb.c 	ft_pow.c 						\
+			colors/ft_color_int_to_rgb.c 	ft_splitdel.c 					\
+			colors/ft_color_rgb_random.c 	ft_sq.c 						\
+			colors/ft_color_rgb_to_hex.c 	ft_sqrt.c 						\
+			colors/ft_color_rgb_to_int.c 	ft_swap.c 						\
+			cplx/ft_cplx_add.c 				ft_tolower.c 					\
+			cplx/ft_cplx_average.c 			ft_toupper.c 					\
+			cplx/ft_cplx_cos.c 				get_next_line.c 				\
+			cplx/ft_cplx_cosh.c 			line/ft_line.c 					\
+			cplx/ft_cplx_discriminant.c 	line/ft_line_horiz.c 			\
+			cplx/ft_cplx_div.c 				line/ft_line_straight.c 		\
+			cplx/ft_cplx_equ.c 				line/ft_line_straight_horiz.c 	\
+			cplx/ft_cplx_exp.c 				line/ft_line_straight_vert.c 	\
+			cplx/ft_cplx_ln.c 				line/ft_line_vert.c 			\
+			cplx/ft_cplx_modul.c 			memory/ft_memalloc.c 			\
+			cplx/ft_cplx_modul_2.c 			memory/ft_memccpy.c 			\
+			cplx/ft_cplx_mult.c 			memory/ft_memchr.c 				\
+			cplx/ft_cplx_pow.c 				memory/ft_memcmp.c 				\
+			cplx/ft_cplx_remove.c 			memory/ft_memcpy.c 				\
+			cplx/ft_cplx_sin.c 				memory/ft_memdel.c 				\
+			cplx/ft_cplx_sinh.c 			memory/ft_memmove.c 			\
+			cplx/ft_cplx_swap.c 			memory/ft_memset.c 				\
+			cplx/ft_cplx_to_real.c 			mlx/ft_create_img.c 			\
+			cplx/ft_cplx_turn.c 			mlx/ft_img_dark.c 				\
+			cplx/ft_make_cplx.c 			mlx/ft_pixel_put.c 				\
+			cplx/ft_make_real.c 			mlx/ft_get_pixel.c 				\
+			cplx/ft_real_to_cplx.c 			str/ft_stractrim.c 				\
+			display/ft_putchar.c 			str/ft_strcat.c 				\
+			display/ft_putchar_fd.c 		str/ft_strchr.c 				\
+			display/ft_putendl.c 			str/ft_strclr.c 				\
+			display/ft_putendl_fd.c 		str/ft_strcmp.c 				\
+			display/ft_putnbr.c 			str/ft_strcpy.c 				\
+			display/ft_putnbr_fd.c 			str/ft_strcspn.c 				\
+			display/ft_putstr.c 			str/ft_strctrim.c 				\
+			display/ft_putstr_fd.c 			str/ft_strdel.c 				\
+			ft_abs.c 						str/ft_strdup.c 				\
+			ft_atoi.c 						str/ft_strequ.c 				\
+			ft_atoi_hexa.c 					str/ft_striter.c 				\
+			ft_average.c 					str/ft_striteri.c 				\
+			ft_bzero.c 						str/ft_strjoin.c 				\
+			ft_count_words.c 				str/ft_strlcat.c 				\
+			ft_deg_to_rad.c 				str/ft_strlen.c 				\
+			ft_digit_abs.c 					str/ft_strlen_words.c 			\
+			ft_digit_hex_to_int.c 			str/ft_strmap.c 				\
+			ft_error.c 						str/ft_strmap_display.c 		\
+			ft_exit.c 						str/ft_strmapi.c 				\
+			ft_find.c 						str/ft_strncat.c 				\
+			ft_ftoa.c 						str/ft_strncdelete.c 			\
+			ft_hex_color_complete.c 		str/ft_strncmp.c 				\
+			ft_intlen.c 					str/ft_strncpy.c 				\
+			ft_isalnum.c 					str/ft_strnequ.c 				\
+			ft_isalpha.c 					str/ft_strnew.c 				\
+			ft_isascii.c 					str/ft_strnstr.c 				\
+			ft_isdigit.c 					str/ft_strrchr.c 				\
+			ft_isnumber.c 					str/ft_strsplit.c 				\
+			ft_isprint.c 					str/ft_strstr.c 				\
+			ft_itoa.c 						str/ft_strsub.c 				\
+			ft_max.c 						str/ft_strtrim.c 				\
+			ft_min.c 						str/ft_strtrimsplit.c 				\
+			ft_mod.c
+SRC_SUP = {colors,cplx,display,line,memory,mlx,str}
+OBJ_PATH = .objects
+INC_PATH = includes
+CPPFLAGS = -I $(INC_PATH)
 NAME = libft.a
-INCLUDES = includes/*.h
-DIR = objects
-SOURCES = sources
-FLAGS = -Wall -Wextra -Werror
-FILES = $(DIR)/ft_strncpy.o				\
-		$(DIR)/ft_putchar.o				\
-		$(DIR)/ft_putstr.o				\
-		$(DIR)/ft_putnbr.o				\
-		$(DIR)/ft_strcmp.o				\
-		$(DIR)/ft_strcpy.o				\
-		$(DIR)/ft_strlen.o				\
-		$(DIR)/ft_strdup.o				\
-		$(DIR)/ft_strstr.o				\
-		$(DIR)/ft_putendl.o				\
-		$(DIR)/ft_strcat.o				\
-		$(DIR)/ft_memset.o				\
-		$(DIR)/ft_bzero.o				\
-		$(DIR)/ft_memcpy.o				\
-		$(DIR)/ft_memccpy.o				\
-		$(DIR)/ft_atoi.o				\
-		$(DIR)/ft_memmove.o				\
-		$(DIR)/ft_memchr.o				\
-		$(DIR)/ft_memcmp.o				\
-		$(DIR)/ft_strncat.o				\
-		$(DIR)/ft_strlcat.o				\
-		$(DIR)/ft_strchr.o				\
-		$(DIR)/ft_strrchr.o				\
-		$(DIR)/ft_strnstr.o				\
-		$(DIR)/ft_strncmp.o				\
-		$(DIR)/ft_isalpha.o				\
-		$(DIR)/ft_isdigit.o				\
-		$(DIR)/ft_isnumber.o			\
-		$(DIR)/ft_isalnum.o				\
-		$(DIR)/ft_isascii.o				\
-		$(DIR)/ft_isprint.o				\
-		$(DIR)/ft_toupper.o				\
-		$(DIR)/ft_tolower.o				\
-		$(DIR)/ft_memalloc.o			\
-		$(DIR)/ft_memdel.o				\
-		$(DIR)/ft_strnew.o				\
-		$(DIR)/ft_strdel.o				\
-		$(DIR)/ft_strclr.o				\
-		$(DIR)/ft_striter.o				\
-		$(DIR)/ft_striteri.o			\
-		$(DIR)/ft_strmap.o				\
-		$(DIR)/ft_strmapi.o				\
-		$(DIR)/ft_strequ.o				\
-		$(DIR)/ft_strnequ.o				\
-		$(DIR)/ft_strsub.o				\
-		$(DIR)/ft_strjoin.o				\
-		$(DIR)/ft_strtrim.o				\
-		$(DIR)/ft_putchar_fd.o			\
-		$(DIR)/ft_putstr_fd.o			\
-		$(DIR)/ft_putendl_fd.o			\
-		$(DIR)/ft_putnbr_fd.o			\
-		$(DIR)/ft_strctrim.o			\
-		$(DIR)/ft_strsplit.o			\
-		$(DIR)/ft_count_words.o			\
-		$(DIR)/ft_strlen_words.o		\
-		$(DIR)/ft_strtrimsplit.o		\
-		$(DIR)/ft_itoa.o				\
-		$(DIR)/ft_intlen.o				\
-		$(DIR)/ft_digit_abs.o			\
-		$(DIR)/ft_lstnew.o				\
-		$(DIR)/ft_lstdelone.o			\
-		$(DIR)/ft_lstdel.o				\
-		$(DIR)/ft_lstadd.o				\
-		$(DIR)/ft_lstiter.o				\
-		$(DIR)/ft_lstmap.o				\
-		$(DIR)/ft_strsplit_lst.o		\
-		$(DIR)/ft_find.o				\
-		$(DIR)/ft_strcspn.o				\
-		$(DIR)/ft_sqrt.o				\
-		$(DIR)/ft_sq.o					\
-		$(DIR)/ft_occur.o				\
-		$(DIR)/ft_stractrim.o			\
-		$(DIR)/ft_strncdelete.o			\
-		$(DIR)/ft_strmap_display.o 		\
-		$(DIR)/ft_error.o				\
-		$(DIR)/ft_mod.o					\
-		$(DIR)/ft_swap.o				\
-		$(DIR)/get_next_line.o			\
-		$(DIR)/ft_atoi_hexa.o			\
-		$(DIR)/ft_abs.o					\
-		$(DIR)/ft_deg_to_rad.o			\
-		$(DIR)/ft_average.o 			\
-		$(DIR)/ft_exit.o 				\
-		$(DIR)/ft_hex_color_complete.o 	\
-		$(DIR)/ft_digit_hex_to_int.o 	\
-		$(DIR)/ft_color_average.o 		\
-		$(DIR)/ft_color_hex_to_rgb.o 	\
-		$(DIR)/ft_color_rgb_to_hex.o 	\
-		$(DIR)/ft_splitdel.o 			\
-		$(DIR)/ft_cplx_modul_2.o 		\
-		$(DIR)/ft_cplx_modul.o 			\
-		$(DIR)/ft_cplx_mult.o 			\
-		$(DIR)/ft_cplx_pow.o 			\
-		$(DIR)/ft_cplx_add.o 			\
-		$(DIR)/ft_cplx_remove.o 		\
-		$(DIR)/ft_cplx_cos.o 			\
-		$(DIR)/ft_cplx_sin.o 			\
-		$(DIR)/ft_cplx_cosh.o 			\
-		$(DIR)/ft_cplx_sinh.o 			\
-		$(DIR)/ft_cplx_div.o 			\
-		$(DIR)/ft_cplx_ln.o 			\
-		$(DIR)/ft_cplx_exp.o 			\
-		$(DIR)/ft_make_cplx.o 			\
-		$(DIR)/ft_cplx_discriminant.o
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+OBJ_NAME = $(SRC_NAME:.c=.o)
+SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
+OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
-all: $(NAME)
+ERASE = \033[2K\r
+BLUE = \033[36m
+WHITE = \033[37m
+GREEN = \033[0;32m
+RED = \033[0;31m
+YELLOW = \033[0;33m
+END = \033[0m
 
-ERASE	= \033[2K\r
-BLUE	= \033[36m
-WHITE	= \033[37m
-END		= \033[0m
-GREEN	= \033[0;32m
-RED		= \033[0;31m
-YELLOW	= \033[0;33m
+.PHONY: all, clean, fclean, re
 
-$(NAME): $(DIR) $(FILES)
-	@ar rc $(NAME) $(FILES)
-	@ranlib $(NAME)
-	@rm -rf $(INCLUDES).gch
-	@rm -rf $(NAME).dSYM
-	@rm -rf .vscode
-	@printf "$(ERASE)$(BLUE)> $(NAME): $(GREEN) success !$(END)"
-	@printf "\n"
+all: mlx $(NAME)
 
-$(DIR)/%.o: $(SOURCES)/%.c $(INCLUDES)
-	@cd $(DIR) ; gcc $(FLAGS) -I ../$(INCLUDES) -c ../$<
-	@printf "$(ERASE)$(BLUE)> Compiling: $(WHITE)$<$(END)"
+$(NAME): $(OBJ)
+	@ar -rc $@ $^
+	@ranlib $@
+	@printf "$(ERASE)$(BLUE)> libft : $(GREEN)Success !$(END)\n"
 
-$(DIR):
-	@mkdir $(DIR)
+mlx:
+	@make -C ../minilibx_macos
 
-clean: supp
-	@rm -rf $(DIR)
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c ../minilibx_macos/libmlx.a
+	@mkdir -p $(OBJ_PATH) $(OBJ_PATH)/$(SRC_SUP)
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
+	@printf "$(ERASE)$(BLUE)> Compilation :$(END) $<"
+
+clean:
+	@rm -rf $(OBJ_PATH)
+	@printf "$(BLUE)> Deleted : $(RED)libft/$(OBJ_PATH)$(END)\n"
 
 fclean: clean
-	@rm -f $(NAME)
+	@rm -rf $(NAME)
+	@printf "$(BLUE)> Deleted : $(RED)$(NAME)$(END)\n"
+	@make -C ../minilibx_macos clean
 
 re: fclean all
 
-supp:
-	@rm -rf $(INCLUDES).gch
-	@rm -rf $(NAME).dSYM
-	@rm -rf .vscode
+norme:
+	@norminette $(SRC) $(INC_PATH)
